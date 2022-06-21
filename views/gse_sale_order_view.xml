@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <record id="view_order_tree_picking_status_inherit" model="ir.ui.view">
+            <field name="name">sale.order.tree.picking.status</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_tree"/>
+            <field name="arch" type="xml">
+                <field name="partner_id" position="after">                    
+                    <field name="client_order_ref" optional="show"/>
+                </field>
+                <field name="invoice_status" position="before">                    
+                    <field name="effective_date" optional="hide"/>
+                    <field name="delivery_status" optional="show" widget="badge" decoration-success="commitment_date and (commitment_date &gt; datetime.datetime.combine(datetime.date.today(), datetime.time(23,59,59)).to_utc().strftime('%Y-%m-%d %H:%M:%S') or delivery_status=='full' and effective_date &lt;= commitment_date)" decoration-danger="commitment_date and (commitment_date &lt; effective_date or commitment_date &lt; datetime.datetime.combine(datetime.date.today(), datetime.time(0,0,0)).to_utc().strftime('%Y-%m-%d %H:%M:%S') and delivery_status!='full' and effective_date &lt;= commitment_date)" decoration-warning="commitment_date and commitment_date &gt;= datetime.datetime.combine(datetime.date.today(), datetime.time(0,0,0)).to_utc().strftime('%Y-%m-%d %H:%M:%S') and commitment_date &lt;= datetime.datetime.combine(datetime.date.today(), datetime.time(23,59,59)).to_utc().strftime('%Y-%m-%d %H:%M:%S') and delivery_status!='full'"/>
+                </field>
+            </field>
+        </record>
+        <record id="view_order_form_picking_status_inherit" model="ir.ui.view">
+            <field name="name">sale.order.form.picking.status</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <field name="effective_date" position="after">
+                    <field name="delivery_status"/>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</odoo>

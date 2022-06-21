@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<odoo>
+	<data>
+		<record id="view_purchase_order_tree_picking_status_inherit" model="ir.ui.view">
+			<field name="name">purchase.order.tree.picking.status</field>
+			<field name="model">purchase.order</field>
+			<field name="inherit_id" ref="purchase.purchase_order_view_tree"/>
+			<field name="arch" type="xml">
+				<field name="invoice_status" position="before">
+					<field name="effective_date" optional="hide"/>
+					<field name="receipt_status" optional="show" widget="badge" decoration-success="date_planned and (date_planned &gt; datetime.datetime.combine(datetime.date.today(), datetime.time(23,59,59)).to_utc().strftime('%Y-%m-%d %H:%M:%S') or receipt_status=='full' and effective_date &lt;= date_planned)" decoration-danger="date_planned and (date_planned &lt; effective_date or date_planned &lt; datetime.datetime.combine(datetime.date.today(), datetime.time(0,0,0)).to_utc().strftime('%Y-%m-%d %H:%M:%S') and receipt_status!='full' and effective_date &lt;= date_planned)" decoration-warning="date_planned and date_planned &gt;= datetime.datetime.combine(datetime.date.today(), datetime.time(0,0,0)).to_utc().strftime('%Y-%m-%d %H:%M:%S') and date_planned &lt;= datetime.datetime.combine(datetime.date.today(), datetime.time(23,59,59)).to_utc().strftime('%Y-%m-%d %H:%M:%S') and receipt_status!='full'"/>
+				</field>
+			</field>
+		</record>
+		<record id="view_purchase_order_form_picking_status_inherit" model="ir.ui.view">
+			<field name="name">purchase.order.form.picking.status</field>
+			<field name="model">purchase.order</field>
+			<field name="inherit_id" ref="purchase.purchase_order_form"/>
+			<field name="arch" type="xml">
+				<field name="invoice_status" position="before">
+					<field name="receipt_status"/>
+				</field>
+			</field>
+		</record>
+
+	</data>
+</odoo>
