@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from odoo import api, fields, models
+from odoo.tools import float_compare
 
 
 class SaleOrder(models.Model):
@@ -18,8 +19,14 @@ class SaleOrder(models.Model):
             if not order.picking_ids or all(p.state == 'cancel' for p in order.picking_ids):
                 order.delivery_status = False
             elif all(p.state in ['done', 'cancel'] for p in order.picking_ids):
-                order.delivery_status = 'full'
+                if all(float_compare(line.qty_delivered, line.product_uom_qty, precision_rounding=line.product_uom.rounding) == 0 for line in order.order_line):
+                    order.delivery_status = 'full'
+                else:
+                    order.delivery_status = 'partial'
             elif any(p.state == 'done' for p in order.picking_ids):
                 order.delivery_status = 'partial'
             else:
                 order.delivery_status = 'pending'
+
+    
+        

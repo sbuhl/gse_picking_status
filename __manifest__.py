@@ -2,6 +2,8 @@
 
 {
     'name': 'Delivery and Reception Status',
+    'author': "Sébastien Bühl",
+    'website': "http://www.buhl.be",
     'version': '0.2',
     'category': 'Hidden',
     'license': 'LGPL-3',
