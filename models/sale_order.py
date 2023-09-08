@@ -7,11 +7,11 @@ from odoo.tools import float_compare
 class SaleOrder(models.Model):
     _inherit = "sale.order"
 
-    delivery_status = fields.Selection([
-        ('pending', 'Not Delivered'),
-        ('partial', 'Partially Delivered'),
-        ('full', 'Fully Delivered'),
-    ], string='Delivery Status', compute='_compute_delivery_status', store=True)
+    # delivery_status = fields.Selection([
+    #     ('pending', 'Not Delivered'),
+    #     ('partial', 'Partially Delivered'),
+    #     ('full', 'Fully Delivered'),
+    # ], string='Delivery Status', compute='_compute_delivery_status', store=True)
 
     @api.depends('picking_ids', 'picking_ids.state')
     def _compute_delivery_status(self):
