@@ -7,11 +7,11 @@ from odoo.tools import float_compare
 class PurchaseOrder(models.Model):
     _inherit = "purchase.order"
 
-    receipt_status = fields.Selection([
-         ('pending', 'Not Received'),
-         ('partial', 'Partially Received'),
-         ('full', 'Fully Received'),
-     ], string='Receipt Status', compute='_compute_receipt_status', store=True)
+    # receipt_status = fields.Selection([
+    #      ('pending', 'Not Received'),
+    #      ('partial', 'Partially Received'),
+    #      ('full', 'Fully Received'),
+    #  ], string='Receipt Status', compute='_compute_receipt_status', store=True)
 
     @api.depends('picking_ids', 'picking_ids.state')
     def _compute_receipt_status(self):

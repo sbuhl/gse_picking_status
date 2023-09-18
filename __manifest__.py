@@ -15,8 +15,8 @@
 """,
     'depends': ['sale_stock', 'purchase', 'stock_account'],
     'data': [
-        'views/gse_sale_order_view.xml',
-        'views/gse_purchase_order_view.xml',
+        #'views/gse_sale_order_view.xml',
+        #'views/gse_purchase_order_view.xml',
             
     ],
     'installable': True,
